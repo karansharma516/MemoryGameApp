@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MemoryGameApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="pickTextView">Pick a Card</string>
+    <string name="scoresTextView">Scores:</string>
+    <string name="timeTextView">"Time: "</string>
+
+</resources>
