@@ -8,6 +8,19 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -17,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,7 +38,16 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	private int _firstCard = -1, _secondCard = -2;
+	private CountDownTimer count;
+	private CountDownTimer timer;
+	private TextView _timeText;
+	private TextView _scoreText;
+	private int _scores = 0;
+	private float _time;
+	private long startTime;
+	private TextView _messagebox;
 	
+	Handler timerHandler = new Handler();
 	//Game Objects
 		private ImageButton _imageButton1,_imageButton2, _imageButton3, _imageButton4,
 	    _imageButton5, _imageButton6, _imageButton7, _imageButton8,
@@ -51,7 +74,13 @@ public class MainActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_main);
 			
-
+			
+			 this._messagebox = (TextView) findViewById(R.id.pickTextView);
+			 this._scoreText = (TextView) findViewById(R.id.scoreTextView);
+			
+			 
+			 _scoreText.setText("Score: 0");
+			 
 			Iterator<String> iterator = pickEightCards().iterator();
 			//initialize the key
 			int key=0;
@@ -87,43 +116,81 @@ public class MainActivity extends Activity {
 		private void pickCard(int card){
 			if(this._firstCard == -1){
 				this._firstCard = card;
+			
 			}
 			
 			else if (this._firstCard != card && this._secondCard == -2){
+				
 				this._secondCard = card;
 				
 				
 				
-				new CountDownTimer(1000, 1000){
+			 new CountDownTimer(1000, 1000){
 					public void onTick(long millisUnitFinished)
 					{
+					//	_timeText.setText(" " + millisUnitFinished/1000);
+						timer = new CountDownTimer(30000, 1000) {
+
+						     public void onTick(long millisUntil) {
+						   	 _timeText.setText("Time: " + millisUntil / 1000);
+						     }
+
+						     public void onFinish() {
+						    	 _timeText.setText("Time OVer!");
+						     }
+						  }.start();	
 						
 					}
 					public void onFinish(){
+						
 						cardsFlip();
+						
 					}
 				}.start();
-				
+	
 			}
-			
-			
-		
+			this._messagebox.setText("Now Pick Another Card");
 		}
+		
+		
 		
 		public void cardsFlip(){
 			
 			if(this.grid.get(this._firstCard) == this.grid.get(_secondCard)){
 				this._imageButtons[this._firstCard].setVisibility(View.INVISIBLE);
 				this._imageButtons[this._secondCard].setVisibility(View.INVISIBLE);
+				
+				this._messagebox.setText("Right!");
+				
+				this._scores++;
+				
+				this._scoreText.setText("Score: "+this._scores);
+				
+				checkScore();
 			}
 			
 			else{
 				this._imageButtons[this._firstCard].setImageResource(R.drawable.cardback);
 				this._imageButtons[this._secondCard].setImageResource(R.drawable.cardback);
+				
+				this._messagebox.setText("Wrong! Pick again…");
 			}
 			
 			this._secondCard = -2;
 			this._firstCard = -1;
+			
+			
+		}
+		
+		private void checkScore(){
+			
+			if (this._scores==8)
+			{
+				this._messagebox.setText("You Won");
+				
+				
+			}
+			
 		}
 		// pick eight cards out of a 52 card deck and shuffle 2 copies of each into a 16 member ArrayList
 		private static ArrayList<String> pickEightCards() {
@@ -151,7 +218,7 @@ public class MainActivity extends Activity {
 			
 			return cardSelected;
 		} // end pickEightCards method
-		
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
