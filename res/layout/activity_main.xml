@@ -1,3 +1,9 @@
+<!-- 
+@Name: Chandan Dadral & Karan Sharma
+@Version: April 17, 2015 
+@Description: It is an Android app which helps to sharp memory. In this app 8 pairs of 
+ 				random cards provided on screen facing backward. This file contains the layout for the app
+ 				 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearVertical"

@@ -7,5 +7,6 @@
     <string name="pickTextView">Pick a Card</string>
     <string name="scoresTextView">Scores:</string>
     <string name="timeTextView">"Time: "</string>
+    <string name="pickCardTextView">Pick a Card, any Card</string>
 
 </resources>
