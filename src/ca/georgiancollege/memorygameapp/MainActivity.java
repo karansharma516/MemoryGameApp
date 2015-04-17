@@ -85,6 +85,7 @@ public class MainActivity extends Activity {
 			
             // get the displayMessage and assign it to the variable
 			 this._messagebox = (TextView) findViewById(R.id.pickTextView);
+			 this._messagebox.setTextColor(Color.RED);
 			// get the scoreText and assign it to the variable
 			 this._scoreText = (TextView) findViewById(R.id.scoreTextView);
 			// get the timeText and assign it to the variable
